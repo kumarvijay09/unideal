@@ -1,0 +1,20 @@
+services:
+  unideal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: unideal-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - NODE_ENV=production
+      - JWT_SECRET=unideal-prod-super-secure-campus-jwt-key
+    volumes:
+      - unideal_data:/app/server/data
+      - unideal_uploads:/app/server/uploads
+
+volumes:
+  unideal_data:
+  unideal_uploads:

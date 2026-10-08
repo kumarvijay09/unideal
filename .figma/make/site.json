@@ -1,0 +1,10 @@
+{
+  "description": "A private campus marketplace enabling students to buy, sell, chat, and negotiate deals for textbooks, electronics, and essentials on their campus.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
