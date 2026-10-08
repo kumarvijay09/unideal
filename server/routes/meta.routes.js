@@ -33,7 +33,9 @@ const CONDITIONS = ["Brand new", "Like new", "Good", "Fair"];
 // GET /api/meta - App metadata with live category counts
 router.get("/", (req, res) => {
   const stats = getStats();
-  const allListings = getListings({ status: "available" }).listings;
+  const allListings = getListings({ limit: 100 }).listings.filter(
+    (item) => item.status !== "sold",
+  );
 
   const categories = CATEGORY_DEFINITIONS.map((cat) => {
     const count = allListings.filter(

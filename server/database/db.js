@@ -540,11 +540,16 @@ export function updateOfferStatus(offerId, status, actorId) {
   offer.status = status;
   offer.updatedAt = new Date().toISOString();
 
-  // If accepted, mark listing status as reserved
+  // If accepted, mark listing status as processing
   if (status === "accepted") {
     const listing = db.listings.find((l) => l.id === offer.listingId);
-    if (listing && listing.status === "available") {
-      listing.status = "reserved";
+    if (listing && (listing.status === "available" || listing.status === "reserved")) {
+      listing.status = "processing";
+    }
+  } else if (status === "rejected" || status === "cancelled") {
+    const listing = db.listings.find((l) => l.id === offer.listingId);
+    if (listing && (listing.status === "processing" || listing.status === "reserved")) {
+      listing.status = "available";
     }
   }
 

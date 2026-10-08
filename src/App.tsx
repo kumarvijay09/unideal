@@ -74,6 +74,8 @@ function ListingCard({
   onToggleSave: (id: number) => void;
 }) {
   const isSold = item.status === "sold";
+  const isProcessing = item.status === "processing" || item.status === "reserved";
+
   return (
     <article className="group min-w-0 cursor-pointer">
       <div
@@ -82,7 +84,7 @@ function ListingCard({
       >
         <img
           className={`h-full w-full object-cover transition duration-500 group-hover:scale-[1.035] ${
-            isSold ? "grayscale-[40%] contrast-90" : ""
+            isSold ? "grayscale-[40%] contrast-90" : isProcessing ? "contrast-95" : ""
           }`}
           src={item.image}
           alt={item.title}
@@ -93,6 +95,11 @@ function ListingCard({
               SOLD
             </span>
           </div>
+        ) : isProcessing ? (
+          <span className="absolute left-3 top-3 rounded-full bg-amber-500/95 px-3 py-1.5 text-[11px] font-black tracking-wide text-white shadow-md backdrop-blur flex items-center gap-1.5">
+            <span className="inline-block h-2 w-2 rounded-full bg-white animate-pulse" />
+            PROCESSING
+          </span>
         ) : (
           <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-bold text-[#314055] backdrop-blur">
             {item.tag || item.condition}
@@ -136,16 +143,20 @@ function ListingCard({
         <div className="shrink-0 text-right">
           <p
             className={`text-[17px] font-extrabold tracking-[-0.03em] ${
-              isSold ? "line-through text-gray-400" : "text-[#102033]"
+              isSold ? "line-through text-gray-400" : isProcessing ? "text-amber-600" : "text-[#102033]"
             }`}
           >
             {item.price}
           </p>
-          {isSold && (
+          {isSold ? (
             <span className="text-[10px] font-extrabold text-red-600 uppercase">
               SOLD
             </span>
-          )}
+          ) : isProcessing ? (
+            <span className="text-[10px] font-extrabold text-amber-600 uppercase">
+              PROCESSING
+            </span>
+          ) : null}
         </div>
       </div>
 
@@ -159,6 +170,10 @@ function ListingCard({
         {isSold ? (
           <span className="ml-auto rounded bg-red-100 px-2 py-0.5 text-[9px] font-black text-red-700">
             SOLD
+          </span>
+        ) : isProcessing ? (
+          <span className="ml-auto rounded bg-amber-100 px-2 py-0.5 text-[9px] font-black text-amber-800">
+            ⏳ IN PROCESS
           </span>
         ) : (
           <span
@@ -193,14 +208,7 @@ export default function App() {
   const [chatListingId, setChatListingId] = useState<number | null>(null);
   const [chatSellerId, setChatSellerId] = useState<string | null>(null);
 
-  // Live Bargaining Demo State in "Made for Campus Life"
-  const [demoOfferAccepted, setDemoOfferAccepted] = useState(false);
-  const [demoMessageText, setDemoMessageText] = useState("");
-  const [demoChatList, setDemoChatList] = useState([
-    { from: "Rahul", text: "Hey! Is the calculator still available?" },
-    { from: "Seller", text: "Yes! It's in great condition. Want to make an offer?" },
-  ]);
-
+  // Notice toast
   const showNotice = (msg: string) => {
     setNotice(msg);
     window.setTimeout(() => setNotice(""), 3500);
@@ -333,29 +341,6 @@ export default function App() {
           prev ? { ...prev, status: newStatus as any } : null
         );
       }
-    }
-  };
-
-  const handleSendDemoMessage = (e: FormEvent) => {
-    e.preventDefault();
-    if (!demoMessageText.trim()) return;
-
-    setDemoChatList((prev) => [
-      ...prev,
-      { from: currentUser?.name || "You", text: demoMessageText.trim() },
-    ]);
-    setDemoMessageText("");
-    showNotice("Message sent to student seller!");
-  };
-
-  const handleAcceptDemoOffer = async () => {
-    try {
-      setDemoOfferAccepted(true);
-      showNotice("🎉 Deal agreed! Offer of ₹650 accepted. Meetup ready!");
-      // Send offer status update to live backend offer-1 if possible
-      await api.offers.updateStatus("offer-1", "accepted").catch(() => {});
-    } catch {
-      setDemoOfferAccepted(true);
     }
   };
 
@@ -960,97 +945,92 @@ export default function App() {
               </div>
             </div>
 
-            {/* Live Interactive Bargain Box */}
+            {/* Campus Bargaining & Deal Flow Showcase */}
             <div className="rounded-[28px] bg-[#EDE7FF] p-6 sm:p-8">
-              <div className="rounded-[22px] bg-white p-4 shadow-[0_16px_50px_rgba(52,36,91,.12)]">
-                <div className="flex items-center gap-3 border-b border-[#EEEDE9] pb-4">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-[#E5F8D2] text-sm font-extrabold text-[#2F5B10]">
-                    R
-                  </span>
+              <div className="rounded-[22px] bg-white p-6 shadow-[0_16px_50px_rgba(52,36,91,.12)] space-y-4">
+                <div className="flex items-center justify-between border-b border-[#EEEDE9] pb-4">
                   <div>
-                    <p className="text-sm font-bold">Rahul Sharma</p>
-                    <p className="text-[11px] text-[#7C8490]">
-                      Casio FX-991EX · ₹800
-                    </p>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#6D45D8]">
+                      Campus Peer Negotiation
+                    </span>
+                    <h3 className="text-base font-extrabold text-[#102033]">
+                      How Bargaining & Deals Work
+                    </h3>
                   </div>
-                  <span
-                    className="ml-auto h-2 w-2 rounded-full bg-[#5ECC70]"
-                    title="Active now"
-                  />
+                  <span className="grid h-8 w-8 place-items-center rounded-xl bg-[#C8FF35] text-[#102033] font-bold">
+                    <Icon name="handshake" size={16} />
+                  </span>
                 </div>
 
-                <div className="space-y-3 py-5 text-xs font-medium">
-                  {demoChatList.map((msg, i) => (
-                    <p
-                      key={i}
-                      className={`${
-                        msg.from === "Rahul"
-                          ? "max-w-[75%] rounded-2xl rounded-bl-md bg-[#F1F1ED] px-4 py-3 leading-5"
-                          : "ml-auto max-w-[75%] rounded-2xl rounded-br-md bg-[#6D45D8] px-4 py-3 leading-5 text-white"
-                      }`}
-                    >
-                      {msg.text}
-                    </p>
-                  ))}
-
-                  {/* Interactive Offer Card */}
-                  <div className="mx-auto max-w-[86%] rounded-2xl border border-[#D9D1F3] bg-[#FAF8FF] p-4 transition">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-[#6D45D8]">
-                        Offer received
-                      </span>
-                      <span
-                        className={`rounded-full px-2 py-1 text-[9px] font-bold ${
-                          demoOfferAccepted
-                            ? "bg-[#E5F8D2] text-[#2C560E]"
-                            : "bg-[#FFF0D9] text-[#8B5A10]"
-                        }`}
-                      >
-                        {demoOfferAccepted ? "ACCEPTED" : "PENDING"}
-                      </span>
+                <div className="space-y-3 text-xs">
+                  <div className="flex items-start gap-3 rounded-xl bg-[#FAF8FF] border border-[#E9E2FF] p-3">
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#6D45D8] text-[11px] font-bold text-white">
+                      1
+                    </span>
+                    <div>
+                      <p className="font-bold text-[#102033]">Propose Your Negotiated Price</p>
+                      <p className="mt-0.5 text-[#657181] leading-4">
+                        Buyers can submit custom offers directly on any product or during student chat.
+                      </p>
                     </div>
-                    <div className="mt-3 flex items-end justify-between">
-                      <div>
-                        <p className="text-[10px] text-[#7A8290]">
-                          Rahul offered
-                        </p>
-                        <p className="mt-1 text-xl font-extrabold">₹650</p>
+                  </div>
+
+                  <div className="flex items-start gap-3 rounded-xl bg-[#FAF8FF] border border-[#E9E2FF] p-3">
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#6D45D8] text-[11px] font-bold text-white">
+                      2
+                    </span>
+                    <div>
+                      <p className="font-bold text-[#102033]">Seller Acceptance Option</p>
+                      <p className="mt-0.5 text-[#657181] leading-4">
+                        Sellers receive a one-click "Accept Offer" option in chat to lock in the price.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 rounded-xl bg-[#FFF8EE] border border-[#FFE8C2] p-3">
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-amber-500 text-[11px] font-bold text-white">
+                      3
+                    </span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="font-bold text-[#102033]">Item Enters "PROCESSING"</p>
+                        <span className="rounded-full bg-amber-500 px-2 py-0.5 text-[9px] font-black text-white">
+                          ⏳ PROCESSING
+                        </span>
                       </div>
-                      {demoOfferAccepted ? (
-                        <div className="flex items-center gap-1 text-xs font-extrabold text-[#2C560E]">
-                          <Icon name="check" size={16} /> Deal agreed!
-                        </div>
-                      ) : (
-                        <button
-                          onClick={handleAcceptDemoOffer}
-                          className="rounded-lg bg-[#C8FF35] px-4 py-2 font-extrabold text-[#102033] hover:bg-[#B8F022] shadow-sm transition"
-                        >
-                          Accept
-                        </button>
-                      )}
+                      <p className="mt-0.5 text-[#885B12] leading-4">
+                        The item is reserved while buyer and seller arrange campus meetup and payment.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 rounded-xl bg-[#F0FDF4] border border-[#DCFCE7] p-3">
+                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-emerald-600 text-[11px] font-bold text-white">
+                      4
+                    </span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="font-bold text-[#102033]">Meetup & Mark as Sold</p>
+                        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[9px] font-black text-emerald-700">
+                          ✓ SOLD
+                        </span>
+                      </div>
+                      <p className="mt-0.5 text-[#166534] leading-4">
+                        Meet safely on campus, verify the item, and seller marks deal finalized.
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Send Chat input */}
-                <form
-                  onSubmit={handleSendDemoMessage}
-                  className="flex items-center rounded-xl bg-[#F4F4F0] p-1.5 pl-4 text-xs"
+                <button
+                  type="button"
+                  onClick={() => {
+                    document.getElementById("marketplace")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="w-full rounded-xl bg-[#102033] py-2.5 text-center text-xs font-bold text-white transition hover:bg-[#6D45D8]"
                 >
-                  <input
-                    type="text"
-                    value={demoMessageText}
-                    onChange={(e) => setDemoMessageText(e.target.value)}
-                    placeholder="Type your message..."
-                    className="flex-1 bg-transparent text-xs text-[#102033] outline-none placeholder:text-[#9299A2]"
-                  />
-                  <button
-                    type="submit"
-                    className="ml-auto grid h-9 w-9 place-items-center rounded-lg bg-[#102033] text-white transition hover:bg-[#6D45D8]"
-                  >
-                    <Icon name="arrow" size={16} />
-                  </button>
-                </form>
+                  Explore Campus Deals →
+                </button>
               </div>
             </div>
           </div>

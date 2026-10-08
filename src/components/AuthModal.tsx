@@ -20,8 +20,8 @@ export default function AuthModal({
   const [error, setError] = useState("");
 
   // Login form state
-  const [email, setEmail] = useState("aarav@campus.edu");
-  const [password, setPassword] = useState("student123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Register form state
   const [name, setName] = useState("");
@@ -70,21 +70,6 @@ export default function AuthModal({
     }
   };
 
-  const handleDemoLogin = async (demoEmail: string) => {
-    setError("");
-    setLoading(true);
-    try {
-      const res = await api.auth.demoLogin(demoEmail);
-      onNotify(`Logged in as demo student ${res.user.name}!`);
-      onSuccess(res.user);
-      onClose();
-    } catch (err: any) {
-      setError(err.message || "Demo login failed.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-6 shadow-2xl md:p-8">
@@ -108,33 +93,6 @@ export default function AuthModal({
             <p className="text-xs text-[#6B7582]">
               Verified peer-to-peer campus marketplace
             </p>
-          </div>
-        </div>
-
-        {/* Quick Demo Switcher */}
-        <div className="mb-6 rounded-2xl bg-[#F8F7F3] p-3 border border-[#EBEBE5]">
-          <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[#798390]">
-            ⚡ Instant 1-Click Demo Login:
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {[
-              { name: "Aarav", email: "aarav@campus.edu", loc: "North Campus" },
-              { name: "Meera", email: "meera@campus.edu", loc: "Block B" },
-              { name: "Kabir", email: "kabir@campus.edu", loc: "Library Gate" },
-              { name: "Rahul", email: "rahul@campus.edu", loc: "South Campus" },
-            ].map((st) => (
-              <button
-                key={st.email}
-                type="button"
-                onClick={() => handleDemoLogin(st.email)}
-                className="flex items-center gap-1.5 rounded-xl border border-[#DFDFD8] bg-white px-2.5 py-1.5 text-xs font-bold text-[#102033] shadow-sm transition hover:border-[#6D45D8] hover:bg-[#F3EFFE]"
-              >
-                <span className="grid h-5 w-5 place-items-center rounded-full bg-[#E5F8D2] text-[10px] font-extrabold text-[#2F5B10]">
-                  {st.name[0]}
-                </span>
-                <span>{st.name}</span>
-              </button>
-            ))}
           </div>
         </div>
 

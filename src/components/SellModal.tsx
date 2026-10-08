@@ -151,7 +151,7 @@ export default function SellModal({
             Student Verification Needed
           </h3>
           <p className="mt-2 text-xs leading-5 text-[#657181]">
-            Please log in or pick a demo student profile before posting items on
+            Please log in or register your student account before posting items on
             the campus marketplace.
           </p>
           <button
@@ -161,7 +161,7 @@ export default function SellModal({
             }}
             className="mt-6 w-full rounded-xl bg-[#102033] py-3 text-xs font-bold text-white transition hover:bg-[#6D45D8]"
           >
-            Log In as Student
+            Log In or Register
           </button>
         </div>
       </div>
