@@ -631,6 +631,30 @@ export default function ChatModal({
                 </form>
               )}
 
+              {/* Quick Bargaining & Meetup Preset Chips */}
+              {!isSold && !isProcessing && (
+                <div className="flex flex-wrap items-center gap-1.5 px-3 py-2 bg-[#FAFAF8] border-t border-[#ECECE6]">
+                  <span className="text-[10px] font-extrabold text-[#757F8C] uppercase tracking-wider mr-1">
+                    Quick Bargain:
+                  </span>
+                  {[
+                    "Can pick up today at hostel",
+                    "Is the price negotiable?",
+                    "Can we meet at the campus library / canteen?",
+                    "Ready to buy if you can reduce slightly",
+                  ].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => setNewText(preset)}
+                      className="rounded-full bg-white border border-[#DCDCD4] px-2.5 py-1 text-[11px] font-medium text-[#2E3847] hover:border-[#6D45D8] hover:text-[#6D45D8] hover:bg-[#F8F6FF] transition shrink-0"
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               {/* Chat Input & Offer trigger */}
               <form
                 onSubmit={handleSendMessage}

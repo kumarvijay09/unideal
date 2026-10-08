@@ -636,8 +636,8 @@ export default function App() {
                   <Icon name="message" size={17} />
                 </span>
                 <div>
-                  <p className="text-[10px] text-white/60">New message</p>
-                  <p className="text-xs font-bold">Is this still available?</p>
+                  <p className="text-[10px] text-[#C8FF35] font-extrabold uppercase tracking-wider">Live Status Engine</p>
+                  <p className="text-xs font-bold">Never ask "Is this still available?"</p>
                 </div>
               </div>
             </div>
@@ -1030,6 +1030,181 @@ export default function App() {
                   className="w-full rounded-xl bg-[#102033] py-2.5 text-center text-xs font-bold text-white transition hover:bg-[#6D45D8]"
                 >
                   Explore Campus Deals →
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Hackathon Problem Statement Showcase: Why Campus WhatsApp Groups Break Down vs. UniDeal */}
+        <section className="border-t border-[#E5E5DF] bg-[#FAF9F5] py-20">
+          <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#DCD1F7] bg-[#F3EFFF] px-3.5 py-1 text-xs font-black uppercase tracking-wider text-[#6D45D8]">
+                <span>💬</span> Built to Replace Chaotic WhatsApp Groups
+              </span>
+              <h2 className="mt-4 text-3xl font-extrabold tracking-[-0.03em] text-[#102033] sm:text-4xl">
+                Why Campus WhatsApp Groups Break Down
+              </h2>
+              <p className="mt-3 text-sm leading-6 text-[#5A6573]">
+                Campus life shouldn't rely on buried chat messages, lost prices, and endless
+                <span className="font-bold text-[#102033]"> "Is this still available?"</span> loops.
+                Here is why UniDeal gives campus commerce a proper home on the web.
+              </p>
+            </div>
+
+            {/* Comparison Grid */}
+            <div className="mt-14 grid gap-8 md:grid-cols-2">
+              {/* WhatsApp Breakdown Card */}
+              <div className="rounded-3xl border border-red-200 bg-white p-7 shadow-sm">
+                <div className="flex items-center justify-between pb-5 border-b border-red-100">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-10 w-10 place-items-center rounded-2xl bg-red-100 text-red-600 font-extrabold text-lg">
+                      ✕
+                    </span>
+                    <div>
+                      <h3 className="text-base font-extrabold text-[#102033]">The WhatsApp Group Chaos</h3>
+                      <p className="text-xs text-[#717B87]">What goes wrong on 500+ student group chats</p>
+                    </div>
+                  </div>
+                  <span className="rounded-full bg-red-50 border border-red-200 px-3 py-1 text-[11px] font-bold text-red-700">
+                    Broken Flow
+                  </span>
+                </div>
+
+                <div className="mt-6 space-y-4 text-xs">
+                  <div className="flex items-start gap-3">
+                    <span className="font-black text-red-500 text-sm leading-none mt-0.5">✕</span>
+                    <div>
+                      <strong className="text-[#102033]">Messages Get Buried Instantly:</strong>
+                      <p className="text-[#647080] mt-0.5 leading-5">
+                        Your textbook or bicycle listing gets pushed up by 250+ new messages, memes, and club announcements within 30 minutes.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="font-black text-red-500 text-sm leading-none mt-0.5">✕</span>
+                    <div>
+                      <strong className="text-[#102033]">Prices Get Lost in Haggling:</strong>
+                      <p className="text-[#647080] mt-0.5 leading-5">
+                        Bargaining happens across messy DMs, screenshots, and audio notes. There is zero price commitment when meeting at the hostel gate.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="font-black text-red-500 text-sm leading-none mt-0.5">✕</span>
+                    <div>
+                      <strong className="text-[#102033]">The "Is this still available?" Ping-Pong:</strong>
+                      <p className="text-[#647080] mt-0.5 leading-5">
+                        Sellers receive dozens of repetitive pings days after the item was already sold, because WhatsApp has no live inventory status.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="font-black text-red-500 text-sm leading-none mt-0.5">✕</span>
+                    <div>
+                      <strong className="text-[#102033]">Zero Trust & Frequent Ghosting:</strong>
+                      <p className="text-[#647080] mt-0.5 leading-5">
+                        Random phone numbers without college verification. Buyers promise to meet and ghost without any campus reputation or accountability.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* UniDeal Web Home Card */}
+              <div className="rounded-3xl border border-emerald-300 bg-white p-7 shadow-sm ring-1 ring-emerald-500/10">
+                <div className="flex items-center justify-between pb-5 border-b border-emerald-100">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-10 w-10 place-items-center rounded-2xl bg-emerald-100 text-emerald-700 font-extrabold text-lg">
+                      ✓
+                    </span>
+                    <div>
+                      <h3 className="text-base font-extrabold text-[#102033]">The UniDeal Web Marketplace</h3>
+                      <p className="text-xs text-[#717B87]">Purpose-built for campus buying, selling & bargaining</p>
+                    </div>
+                  </div>
+                  <span className="rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-[11px] font-bold text-emerald-700">
+                    Proper Home
+                  </span>
+                </div>
+
+                <div className="mt-6 space-y-4 text-xs">
+                  <div className="flex items-start gap-3">
+                    <span className="font-black text-emerald-600 text-sm leading-none mt-0.5">✓</span>
+                    <div>
+                      <strong className="text-[#102033]">Permanent, Categorized Web Catalog:</strong>
+                      <p className="text-[#647080] mt-0.5 leading-5">
+                        8 clean categories, instant keyword search, and filters by hostel block. Your listings stay discoverable until marked sold.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="font-black text-emerald-600 text-sm leading-none mt-0.5">✓</span>
+                    <div>
+                      <strong className="text-[#102033]">One-Click Offer & Price Lock-In:</strong>
+                      <p className="text-[#647080] mt-0.5 leading-5">
+                        Buyers propose a custom ₹ bargain offer directly in chat; sellers accept with 1 click, locking the agreed price into the deal.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="font-black text-emerald-600 text-sm leading-none mt-0.5">✓</span>
+                    <div>
+                      <strong className="text-[#102033]">Live Lifecycle Eliminates Guesswork:</strong>
+                      <p className="text-[#647080] mt-0.5 leading-5">
+                        Listings shift from <span className="font-bold text-emerald-700">Available</span> to <span className="font-bold text-amber-700">⏳ Processing</span> (hold) to <span className="font-bold text-red-700">Sold</span> automatically.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="font-black text-emerald-600 text-sm leading-none mt-0.5">✓</span>
+                    <div>
+                      <strong className="text-[#102033]">Campus-Verified Student Trust:</strong>
+                      <p className="text-[#647080] mt-0.5 leading-5">
+                        Students login with campus profiles, verified hostel locations, and transparent meetup spots across campus.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Persona Callout: The Real Business Owner */}
+            <div className="mt-10 rounded-3xl bg-[#102033] p-7 sm:p-9 text-white shadow-xl relative overflow-hidden">
+              <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#6D45D8]/20 blur-3xl pointer-events-none" />
+              <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="max-w-2xl">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold text-[#C8FF35] mb-3">
+                    <span>🎓</span> The Real Owner: Graduating Senior & Hostel Room Reseller
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight">
+                    "Why I Stopped Selling on WhatsApp Groups"
+                  </h3>
+                  <p className="mt-3 text-xs sm:text-sm text-white/70 leading-6 italic">
+                    "When clearing out my hostel room before graduation, I had a bicycle, electric kettle, and 8 textbooks.
+                    Posting on WhatsApp got me 45 random DMs asking 'available?', buyers who agreed on ₹600 then showed up at the gate offering ₹350,
+                    and messages buried by lunch. UniDeal gave me one clean link, locked-in bargaining, and peace of mind."
+                  </p>
+                  <p className="mt-3 text-xs font-bold text-[#C8FF35]">
+                    — Rohan Sharma, Final Year Hostel 7 resident & Campus Seller
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (currentUser) setSellModalOpen(true);
+                    else setAuthModalOpen(true);
+                  }}
+                  className="rounded-2xl bg-[#C8FF35] px-6 py-3.5 text-xs font-black text-[#102033] shadow-md transition hover:bg-[#B8F022] shrink-0"
+                >
+                  Post Your Campus Listing →
                 </button>
               </div>
             </div>

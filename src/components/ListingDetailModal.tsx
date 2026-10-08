@@ -189,6 +189,14 @@ export default function ListingDetailModal({
               <span>{item.time}</span>
             </div>
 
+            {/* Live Availability Status Pill */}
+            {!isSold && !isProcessing && (
+              <div className="mt-2.5 inline-flex items-center gap-1.5 self-start rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-800 border border-emerald-200">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Available for Pickup · Never ask "is this still available?"</span>
+              </div>
+            )}
+
             {/* Processing banner if item transaction is underway */}
             {isProcessing && (
               <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50/90 p-3.5 text-xs text-amber-900 flex items-start gap-2.5">

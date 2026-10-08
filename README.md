@@ -1,17 +1,48 @@
-# 🎓 UniDeal - Peer-to-Peer University Student Marketplace
+# 🎓 UniDeal - Dedicated Campus Marketplace for Students
 
 > **Good stuff, closer than you think.**  
-> UniDeal is a full-stack campus marketplace platform built specifically to solve university students' problems when buying and selling second-hand textbooks, electronics, hostel dorm essentials, bicycles, and accessories within their verified student community.
+> UniDeal is a full-stack, purpose-built campus web marketplace designed to rescue university commerce from chaotic WhatsApp groups.
 
 ---
 
-## 🌟 Problems Solved for University Students
+## 🏆 Hackathon Problem Statement & Solution Mapping
 
-1. **Scam Prevention & Trust**: Traditional classifieds are unsafe. UniDeal provides **campus-verified student profiles** tied to their university email, hostel block, and student identity.
-2. **Eliminates Buried WhatsApp/Telegram Chaos**: Students no longer have to search through thousands of cluttered spam messages in class groups. UniDeal categorizes everything with search, condition tags, and pickup points.
-3. **Frictionless Bargaining ("Bargain Built-in")**: College students love to negotiate. UniDeal features an interactive bargaining and offer system where buyers propose custom prices with notes, and sellers can instantly accept, reject, or negotiate.
-4. **Campus Proximity & Safe Hand-off**: Items are mapped directly to familiar campus spots (*"North Campus"*, *"Hostel Block B"*, *"Library Gate"*, *"Girls Hostel 2"*), enabling zero-shipping, hand-to-hand student deals between lectures.
-5. **Real-Time Student Chat**: Direct in-app messaging connected to the exact item listing.
+> *"Campus life runs on WhatsApp groups: buy and sell, laundry, late-night food, rentals, tutoring. They work until messages get buried, prices get lost, and every deal begins with 'is this still available?'"*  
+> *"Your mission: pick one campus business (existing, or one that should exist) and give it a proper home on the web."*  
+> *"Must have: sellers who post what they offer, buyers who can browse it, and a way for buyer and seller to chat and bargain on a price."*  
+> *"Make it yours: Who is the real owner of this business and what annoys them? What does the WhatsApp version get wrong? What would make students trust it?"*  
+> *"No AI is needed inside the app."*
+
+| Hackathon Requirement | How UniDeal Solves It |
+|---|---|
+| **Campus Business Chosen** | **Peer-to-Peer Campus Buy & Sell (Textbooks, Tech, Hostel Gear, Cycles)** |
+| **Sellers post what they offer** | Clean sell modal to upload item photos, set asking price, condition, category, and exact campus/hostel pickup location. |
+| **Buyers browse it** | 8 structured categories, instant search, condition tags, and hostel filters. Everything has a persistent web home. |
+| **Chat & Bargain on a price** | Integrated campus chat with an active **Bargaining & Offer Engine**: Buyers propose custom ₹ offers; Sellers have a one-click **"Accept Offer (₹...)"** or **"Decline"** button. |
+| **Kill "Is this still available?"** | Real-time status lifecycle: `● Available` ➔ `⏳ Processing (Deal Agreed & Reserved)` ➔ `✓ Sold Out`. No more guessing or ghosting. |
+| **The Real Owner & What Annoys Them** | **Persona: Graduating Senior & Hostel Room Reseller** (e.g. Rohan Sharma, Hostel 7). Annoys them: Answering 40 DMs asking "available?", messages buried under 500+ group memes, and buyers re-haggling at the hostel gate. |
+| **What WhatsApp gets wrong** | Messages get buried in 15 minutes; prices are lost across messy screenshots; no price lock-in; zero inventory tracking. |
+| **What makes students trust it** | Campus-verified student accounts, verified hostel block locations, and transparent transaction state tracking. |
+| **No AI needed inside app** | 100% human-to-human peer commerce built with modern web speed, direct communication, and real student trust. |
+
+---
+
+## 🌟 WhatsApp Groups vs. UniDeal
+
+```
++-----------------------------------+-----------------------------------+
+|  Chaotic WhatsApp Groups (Before) |       UniDeal Web Home (Now)      |
++-----------------------------------+-----------------------------------+
+| ❌ Buried under 300+ memes & spam | ✅ Permanent catalog & 8 category |
+|    within 15 minutes.             |    search by hostel & subject.    |
+| ❌ "Is this still available?" on  | ✅ Live status: Available,        |
+|    repeat for days after sale.    |    Processing (Held), Sold.       |
+| ❌ Haggling lost in chat DMs with | ✅ Structured Offer system with   |
+|    zero price lock-in.            |    1-click seller acceptance.     |
+| ❌ Random unverified phone        | ✅ Campus student verification &  |
+|    numbers and hostel gate ghost. |    exact campus meetup locations. |
++-----------------------------------+-----------------------------------+
+```
 
 ---
 
@@ -66,21 +97,6 @@ Open **http://localhost:5000** in your browser.
 
 ---
 
-## ⚡ Instant 1-Click Demo Accounts
-
-All demo accounts come pre-seeded with password: `student123`
-
-| Name | Campus Email | Role | Campus Location |
-|---|---|---|---|
-| **Aarav Sharma** | `aarav@campus.edu` | Seller (Headphones, Calculator) | North Campus |
-| **Meera Patel** | `meera@campus.edu` | Seller (Backpack, Bicycle) | Hostel Block B |
-| **Kabir Sen** | `kabir@campus.edu` | Seller (Textbooks, Kettle) | Library Gate |
-| **Rahul Sharma** | `rahul@campus.edu` | Buyer (Active ₹650 Offer) | South Campus |
-
-*(You can also register a brand new student profile directly in the Auth Modal!)*
-
----
-
 ## 📡 Complete REST API Documentation
 
 ### 🔐 Authentication (`/api/auth`)
@@ -88,8 +104,6 @@ All demo accounts come pre-seeded with password: `student123`
 |---|---|---|---|
 | `POST` | `/api/auth/register` | Register new campus student profile | No |
 | `POST` | `/api/auth/login` | Student login (returns JWT token) | No |
-| `POST` | `/api/auth/demo-login` | 1-click login as a demo student | No |
-| `GET` | `/api/auth/demo-users` | List available demo accounts | No |
 | `GET` | `/api/auth/me` | Current profile with listings & offers stats | Yes (Bearer) |
 
 ### 📦 Campus Listings (`/api/listings`)
@@ -98,7 +112,7 @@ All demo accounts come pre-seeded with password: `student123`
 | `GET` | `/api/listings` | Search & filter listings (`?q=`, `?category=`, `?tab=`, `?campus=`, `?condition=`) | Optional |
 | `GET` | `/api/listings/:id` | Detailed listing info with seller profile | Optional |
 | `POST` | `/api/listings` | Post new campus item (`title`, `price`, `category`, `condition`, `place`, `image`) | Yes (Bearer) |
-| `PUT` | `/api/listings/:id` | Update listing or mark as reserved/sold | Yes (Owner) |
+| `PUT` | `/api/listings/:id` | Update listing or mark as processing / sold | Yes (Owner) |
 | `DELETE` | `/api/listings/:id` | Delete listing from marketplace | Yes (Owner) |
 | `POST` | `/api/listings/:id/save` | Toggle save / bookmark listing | Yes (Bearer) |
 | `GET` | `/api/listings/saved` | Get user's saved wishlist | Yes (Bearer) |
@@ -127,47 +141,17 @@ All demo accounts come pre-seeded with password: `student123`
 
 ---
 
-## ☁️ Cloud Deployment Guide
+## ☁️ Cloud Deployment Guide (Render / Docker)
 
-UniDeal is completely containerized and cloud-ready for immediate deployment on any cloud provider:
+UniDeal is containerized and cloud-ready with native Docker and Render support:
 
-### Option 1: Render.com (1-Click Blueprint)
-1. Push this repository to GitHub / GitLab.
-2. Go to **Render Dashboard** -> **New** -> **Blueprint**.
-3. Select this repo (`render.yaml` will be auto-detected).
-4. Click **Apply**. Render will install dependencies, build the Vite bundle, and deploy the unified web service with automatic SSL!
-
-### Option 2: Railway.app
-1. Go to **Railway.app** -> **New Project** -> **Deploy from GitHub repo**.
-2. Railway detects `railway.json` and `Dockerfile`.
-3. Set environment variable `JWT_SECRET` (optional).
-4. Deployed and live in ~60 seconds!
-
-### Option 3: Docker / Google Cloud Run / AWS / Fly.io
-Build and run the production container:
-```bash
-# Build image
-docker build -t unideal-app .
-
-# Run container
-docker run -p 8080:8080 -e PORT=8080 unideal-app
-```
-Or using Docker Compose:
-```bash
-docker compose up -d
-```
-Access the application at `http://localhost:8080`.
-
----
-
-## 🧪 Automated Testing
-
-Run the included end-to-end API verification suite:
-```bash
-# With the server running on port 5000:
-pnpm run test:api
-```
-All 15 core API endpoints are verified: health, categories, student auth, listing creation, search queries, bookmarking, bargaining lifecycle, and messaging.
+1. Push this repository to GitHub:
+   ```bash
+   git add .
+   git commit -m "Update UniDeal for hackathon problem statement"
+   git push origin main
+   ```
+2. Render detects the commit and triggers a zero-downtime automatic build & deploy via Docker.
 
 ---
 
