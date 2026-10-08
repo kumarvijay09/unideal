@@ -10,9 +10,9 @@ WORKDIR /app
 # Enable pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Install dependencies
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+# Install dependencies (use --no-frozen-lockfile to prevent mismatch errors)
+COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install --no-frozen-lockfile
 
 # Copy source code and build frontend bundle
 COPY . .
@@ -29,11 +29,10 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 ENV NODE_ENV=production
-ENV PORT=8080
 
 # Install production dependencies only
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --prod --frozen-lockfile
+COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install --prod --no-frozen-lockfile
 
 # Copy backend server code and built assets from Stage 1
 COPY server ./server
@@ -42,12 +41,8 @@ COPY --from=builder /app/dist ./dist
 # Create storage directories
 RUN mkdir -p /app/server/data /app/server/uploads
 
-# Expose cloud container port
-EXPOSE 8080
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/api/health || exit 1
+# Expose common cloud ports
+EXPOSE 10000 8080 5000
 
 # Start unified full-stack server
 CMD ["node", "server/index.js"]
