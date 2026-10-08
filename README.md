@@ -141,6 +141,35 @@ Open **http://localhost:5000** in your browser.
 
 ---
 
+## 🧪 Automated Testing & Quality Assurance
+
+UniDeal includes a multi-tier automated test suite executable with zero setup:
+
+```bash
+# Run unit and accessibility tests (native Node.js runner):
+npm test
+
+# Run API integration and lifecycle verification:
+npm run test:api
+
+# Run test coverage audit:
+npm run test:coverage
+```
+
+### ⚡ Efficiency & Performance
+- **Bundle Code-Splitting**: Heavy dialogs (`AuthModal`, `SellModal`, `ListingDetailModal`, `ChatModal`) are dynamically code-split using `React.lazy()` and `<Suspense>`, reducing the initial JavaScript payload.
+- **Rollup Chunking**: Vendor libraries (`react`, `react-dom`) are separated into cacheable browser chunks.
+- **Image Optimization**: All item photos use `loading="lazy"` and `decoding="async"` to eliminate layout shifts (CLS).
+- **Asset Caching & Compression**: Express serves static assets and production bundles with `maxAge: 1d` and `etag: true`.
+
+### ♿ Accessibility (a11y) & WCAG Compliance
+- **Screen Reader & ARIA Support**: All modals implement `role="dialog"`, `aria-modal="true"`, and `aria-labelledby`.
+- **Form Controls**: All inputs are bound to explicit `<label>` elements via `htmlFor` and `id` attributes with autocompletion.
+- **Bypass Mechanism**: Includes a skip-to-content link for keyboard navigation.
+- **Touch Targets**: All mobile and desktop interactive elements exceed 44px touch-target standards.
+
+---
+
 ## ☁️ Cloud Deployment Guide (Render / Docker)
 
 UniDeal is containerized and cloud-ready with native Docker and Render support:

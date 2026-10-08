@@ -71,11 +71,17 @@ export default function AuthModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="auth-modal-title"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+    >
       <div className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-6 shadow-2xl md:p-8">
         {/* Close Button */}
         <button
           onClick={onClose}
+          aria-label="Close authentication window"
           className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#F3F3EE] text-[#556070] transition hover:bg-[#E8E8E3] hover:text-[#102033]"
         >
           <Icon name="x" size={18} />
@@ -87,7 +93,7 @@ export default function AuthModal({
             <Icon name="shield" size={20} />
           </div>
           <div>
-            <h2 className="text-xl font-extrabold text-[#102033]">
+            <h2 id="auth-modal-title" className="text-xl font-extrabold text-[#102033]">
               Campus Student Access
             </h2>
             <p className="text-xs text-[#6B7582]">
@@ -138,12 +144,14 @@ export default function AuthModal({
         {tab === "login" ? (
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="login-email" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Student Email (.edu or campus mail)
               </label>
               <input
+                id="login-email"
                 type="email"
                 required
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@campus.edu"
@@ -152,12 +160,14 @@ export default function AuthModal({
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="login-password" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Password
               </label>
               <input
+                id="login-password"
                 type="password"
                 required
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
@@ -177,12 +187,14 @@ export default function AuthModal({
           /* Register Form */
           <form onSubmit={handleRegister} className="space-y-3">
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="reg-name" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Full Name
               </label>
               <input
+                id="reg-name"
                 type="text"
                 required
+                autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Priya Sharma"
@@ -191,12 +203,14 @@ export default function AuthModal({
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="reg-email" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Campus Email
               </label>
               <input
+                id="reg-email"
                 type="email"
                 required
+                autoComplete="email"
                 value={regEmail}
                 onChange={(e) => setRegEmail(e.target.value)}
                 placeholder="priya@campus.edu"
@@ -205,13 +219,15 @@ export default function AuthModal({
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="reg-password" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Create Password
               </label>
               <input
+                id="reg-password"
                 type="password"
                 required
                 minLength={6}
+                autoComplete="new-password"
                 value={regPassword}
                 onChange={(e) => setRegPassword(e.target.value)}
                 placeholder="At least 6 characters"
@@ -221,10 +237,11 @@ export default function AuthModal({
 
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+                <label htmlFor="reg-campus-location" className="mb-1 block text-xs font-bold text-[#3B4758]">
                   Campus Area
                 </label>
                 <select
+                  id="reg-campus-location"
                   value={campusLocation}
                   onChange={(e) => setCampusLocation(e.target.value)}
                   className="w-full rounded-xl border border-[#DCDCD6] bg-[#FCFCFA] px-3 py-2.5 text-xs font-medium outline-none"
@@ -238,10 +255,11 @@ export default function AuthModal({
                 </select>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+                <label htmlFor="reg-hostel" className="mb-1 block text-xs font-bold text-[#3B4758]">
                   Hostel / Room
                 </label>
                 <input
+                  id="reg-hostel"
                   type="text"
                   value={hostel}
                   onChange={(e) => setHostel(e.target.value)}

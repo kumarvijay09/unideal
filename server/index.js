@@ -15,6 +15,14 @@ import healthRoutes from "./routes/health.routes.js";
 const app = express();
 
 // Security and CORS configuration
+app.use((req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  next();
+});
+
 app.use(
   cors({
     origin: "*",
@@ -41,8 +49,14 @@ if (config.nodeEnv !== "test") {
   });
 }
 
-// Serve uploaded user files
-app.use("/uploads", express.static(config.uploadDir));
+// Serve uploaded user files with cache headers
+app.use(
+  "/uploads",
+  express.static(config.uploadDir, {
+    maxAge: "1d",
+    etag: true,
+  })
+);
 
 // Mount API routes
 app.use("/api/health", healthRoutes);
@@ -64,7 +78,12 @@ app.use("/api", (req, res) => {
 // Production SPA static file serving
 if (fs.existsSync(config.distDir)) {
   console.log(`Serving static production build from ${config.distDir}`);
-  app.use(express.static(config.distDir));
+  app.use(
+    express.static(config.distDir, {
+      maxAge: "1d",
+      etag: true,
+    })
+  );
 
   // SPA fallback for non-API client routes
   app.use((req, res, next) => {

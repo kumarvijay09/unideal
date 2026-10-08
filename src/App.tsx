@@ -1,10 +1,11 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState, useMemo, useCallback, lazy, Suspense } from "react";
 import { Icon, IconName } from "./components/Icons";
-import AuthModal from "./components/AuthModal";
-import SellModal from "./components/SellModal";
-import ListingDetailModal from "./components/ListingDetailModal";
-import ChatModal from "./components/ChatModal";
 import { api, ListingItem, User } from "./services/api";
+
+const AuthModal = lazy(() => import("./components/AuthModal"));
+const SellModal = lazy(() => import("./components/SellModal"));
+const ListingDetailModal = lazy(() => import("./components/ListingDetailModal"));
+const ChatModal = lazy(() => import("./components/ChatModal"));
 
 const initialCategories: {
   label: string;
@@ -88,6 +89,8 @@ function ListingCard({
           }`}
           src={item.image}
           alt={item.title}
+          loading="lazy"
+          decoding="async"
         />
         {isSold ? (
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[1px]">
@@ -1316,52 +1319,54 @@ export default function App() {
         ))}
       </nav>
 
-      {/* Modals */}
-      <AuthModal
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-        onSuccess={(user) => {
-          setCurrentUser(user);
-          showNotice(`Signed in as ${user.name}`);
-        }}
-        onNotify={showNotice}
-      />
+      {/* Modals with Code-Splitting Suspense */}
+      <Suspense fallback={null}>
+        <AuthModal
+          isOpen={authModalOpen}
+          onClose={() => setAuthModalOpen(false)}
+          onSuccess={(user) => {
+            setCurrentUser(user);
+            showNotice(`Signed in as ${user.name}`);
+          }}
+          onNotify={showNotice}
+        />
 
-      <SellModal
-        isOpen={sellModalOpen}
-        onClose={() => setSellModalOpen(false)}
-        currentUser={currentUser}
-        onRequireAuth={() => setAuthModalOpen(true)}
-        onSuccess={(newListing) => {
-          setListings((prev) => [newListing, ...prev]);
-          document.getElementById("marketplace")?.scrollIntoView({ behavior: "smooth" });
-        }}
-        onNotify={showNotice}
-      />
+        <SellModal
+          isOpen={sellModalOpen}
+          onClose={() => setSellModalOpen(false)}
+          currentUser={currentUser}
+          onRequireAuth={() => setAuthModalOpen(true)}
+          onSuccess={(newListing) => {
+            setListings((prev) => [newListing, ...prev]);
+            document.getElementById("marketplace")?.scrollIntoView({ behavior: "smooth" });
+          }}
+          onNotify={showNotice}
+        />
 
-      <ListingDetailModal
-        item={selectedItem}
-        onClose={() => setSelectedItem(null)}
-        currentUser={currentUser}
-        onRequireAuth={() => setAuthModalOpen(true)}
-        onToggleSave={handleToggleSave}
-        onOpenChat={handleOpenChat}
-        onNotify={showNotice}
-        onListingUpdated={handleListingUpdated}
-      />
+        <ListingDetailModal
+          item={selectedItem}
+          onClose={() => setSelectedItem(null)}
+          currentUser={currentUser}
+          onRequireAuth={() => setAuthModalOpen(true)}
+          onToggleSave={handleToggleSave}
+          onOpenChat={handleOpenChat}
+          onNotify={showNotice}
+          onListingUpdated={handleListingUpdated}
+        />
 
-      <ChatModal
-        isOpen={chatModalOpen}
-        onClose={() => {
-          setChatModalOpen(false);
-          setChatListingId(null);
-          setChatSellerId(null);
-        }}
-        currentUser={currentUser}
-        initialListingId={chatListingId}
-        initialSellerId={chatSellerId}
-        onListingUpdated={handleListingUpdated}
-      />
+        <ChatModal
+          isOpen={chatModalOpen}
+          onClose={() => {
+            setChatModalOpen(false);
+            setChatListingId(null);
+            setChatSellerId(null);
+          }}
+          currentUser={currentUser}
+          initialListingId={chatListingId}
+          initialSellerId={chatSellerId}
+          onListingUpdated={handleListingUpdated}
+        />
+      </Suspense>
     </div>
   );
 }

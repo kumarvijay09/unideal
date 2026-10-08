@@ -1,7 +1,23 @@
 // Smoke test suite for UniDeal Backend API
-const BASE_URL = process.env.TEST_API_URL || "http://localhost:5000";
+import app from "../index.js";
+
+let server = null;
+let BASE_URL = process.env.TEST_API_URL || "http://localhost:5000";
 
 async function runTests() {
+  // Auto-start in-memory server if port 5000 is not running
+  try {
+    const check = await fetch(`${BASE_URL}/api/health`);
+    if (!check.ok) throw new Error("Health check not ok");
+  } catch {
+    const testPort = 5123;
+    BASE_URL = `http://localhost:${testPort}`;
+    await new Promise((resolve) => {
+      server = app.listen(testPort, () => resolve());
+    });
+    console.log(`Started in-process test server on ${BASE_URL}`);
+  }
+
   console.log(`Starting UniDeal API verification tests against ${BASE_URL}...`);
   let passed = 0;
   let failed = 0;
@@ -227,6 +243,10 @@ async function runTests() {
   console.log(`Test Results: ${passed} Passed, ${failed} Failed`);
   console.log(`========================================`);
 
+  if (server) {
+    server.close();
+  }
+
   if (failed > 0) {
     process.exit(1);
   }
@@ -234,5 +254,6 @@ async function runTests() {
 
 runTests().catch((err) => {
   console.error("Test suite execution failed:", err);
+  if (server) server.close();
   process.exit(1);
 });

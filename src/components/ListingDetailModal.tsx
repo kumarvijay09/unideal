@@ -115,10 +115,16 @@ export default function ListingDetailModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-150">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="listing-detail-title"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto animate-in fade-in duration-150"
+    >
       <div className="relative my-8 w-full max-w-2xl overflow-hidden rounded-3xl bg-white shadow-2xl">
         <button
           onClick={onClose}
+          aria-label="Close listing details"
           className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-[#102033] shadow-md backdrop-blur transition hover:bg-white"
         >
           <Icon name="x" size={18} />
@@ -130,6 +136,8 @@ export default function ListingDetailModal({
             <img
               src={item.image}
               alt={item.title}
+              loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover"
             />
             {isSold ? (
@@ -157,7 +165,7 @@ export default function ListingDetailModal({
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#6D45D8]">
                   {item.category}
                 </span>
-                <h2 className="mt-1 text-xl font-extrabold tracking-[-0.02em] text-[#102033]">
+                <h2 id="listing-detail-title" className="mt-1 text-xl font-extrabold tracking-[-0.02em] text-[#102033]">
                   {item.title}
                 </h2>
               </div>

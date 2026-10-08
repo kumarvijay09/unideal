@@ -311,10 +311,16 @@ export default function ChatModal({
     : null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="chat-modal-title"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+    >
       <div className="relative flex h-[85vh] w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-2xl">
         <button
           onClick={onClose}
+          aria-label="Close message window"
           className="absolute right-4 top-4 z-20 grid h-9 w-9 place-items-center rounded-full bg-[#F3F3EE] text-[#556070] transition hover:bg-[#E8E8E3] hover:text-[#102033]"
         >
           <Icon name="x" size={18} />
@@ -327,7 +333,7 @@ export default function ChatModal({
           } sm:flex sm:w-72 flex-col border-r border-[#EAEAE3] bg-[#FAF9F5] h-full`}
         >
           <div className="p-4 border-b border-[#EAEAE3]">
-            <h3 className="text-base font-extrabold text-[#102033]">Messages</h3>
+            <h3 id="chat-modal-title" className="text-base font-extrabold text-[#102033]">Messages</h3>
             <p className="text-[11px] text-[#69727E]">Campus chats & deals</p>
           </div>
 
@@ -698,10 +704,12 @@ export default function ChatModal({
                   value={newText}
                   onChange={(e) => setNewText(e.target.value)}
                   placeholder="Type a message to discuss deal..."
+                  aria-label="Message to negotiate or discuss deal"
                   className="flex-1 rounded-xl bg-[#F4F4F0] px-4 py-3 text-xs text-[#102033] outline-none placeholder:text-[#9299A2] focus:bg-[#EFEFEA]"
                 />
                 <button
                   type="submit"
+                  aria-label="Send message"
                   className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#102033] text-white transition hover:bg-[#6D45D8]"
                 >
                   <Icon name="send" size={17} />

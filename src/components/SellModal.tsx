@@ -220,10 +220,16 @@ export default function SellModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sell-modal-title"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+    >
       <div className="relative my-8 w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl md:p-8">
         <button
           onClick={onClose}
+          aria-label="Close sell modal"
           className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-[#F3F3EE] text-[#556070] transition hover:bg-[#E8E8E3] hover:text-[#102033]"
         >
           <Icon name="x" size={18} />
@@ -234,7 +240,7 @@ export default function SellModal({
             <Icon name="plus" size={20} />
           </div>
           <div>
-            <h2 className="text-xl font-extrabold text-[#102033]">
+            <h2 id="sell-modal-title" className="text-xl font-extrabold text-[#102033]">
               Sell Something on Campus
             </h2>
             <p className="text-xs text-[#6B7582]">
@@ -251,10 +257,11 @@ export default function SellModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+            <label htmlFor="sell-title" className="mb-1 block text-xs font-bold text-[#3B4758]">
               Listing Title *
             </label>
             <input
+              id="sell-title"
               type="text"
               required
               value={title}
@@ -266,10 +273,11 @@ export default function SellModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="sell-price" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Asking Price (₹) *
               </label>
               <input
+                id="sell-price"
                 type="text"
                 required
                 value={price}
@@ -280,10 +288,11 @@ export default function SellModal({
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="sell-category" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Category *
               </label>
               <select
+                id="sell-category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full rounded-xl border border-[#DCDCD6] bg-[#FCFCFA] px-3.5 py-2.5 text-xs font-medium outline-none"
@@ -302,10 +311,11 @@ export default function SellModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="sell-condition" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Condition
               </label>
               <select
+                id="sell-condition"
                 value={condition}
                 onChange={(e) => setCondition(e.target.value)}
                 className="w-full rounded-xl border border-[#DCDCD6] bg-[#FCFCFA] px-3.5 py-2.5 text-xs font-medium outline-none"
@@ -318,10 +328,11 @@ export default function SellModal({
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-bold text-[#3B4758]">
+              <label htmlFor="sell-location" className="mb-1 block text-xs font-bold text-[#3B4758]">
                 Pickup Location / Hostel
               </label>
               <input
+                id="sell-location"
                 type="text"
                 required
                 value={place}
