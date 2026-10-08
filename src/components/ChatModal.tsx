@@ -33,6 +33,11 @@ export default function ChatModal({
   const [offerNote, setOfferNote] = useState("");
   const [offerLoading, setOfferLoading] = useState(false);
 
+  // Mobile responsiveness tab: switch between list of chats and active thread on phones
+  const [mobileTab, setMobileTab] = useState<"conversations" | "thread">(
+    initialListingId ? "thread" : "conversations"
+  );
+
   const loadOffers = async () => {
     try {
       const res = await api.offers.getAll();
@@ -78,6 +83,7 @@ export default function ChatModal({
 
   const selectConversation = async (conv: Conversation) => {
     setSelectedConv(conv);
+    setMobileTab("thread");
     try {
       const res = await api.messages.getThread(conv.id);
       setMessages(res.messages || []);
@@ -315,7 +321,11 @@ export default function ChatModal({
         </button>
 
         {/* Sidebar Conversations */}
-        <div className="hidden sm:flex w-72 flex-col border-r border-[#EAEAE3] bg-[#FAF9F5]">
+        <div
+          className={`${
+            mobileTab === "conversations" ? "flex w-full" : "hidden"
+          } sm:flex sm:w-72 flex-col border-r border-[#EAEAE3] bg-[#FAF9F5] h-full`}
+        >
           <div className="p-4 border-b border-[#EAEAE3]">
             <h3 className="text-base font-extrabold text-[#102033]">Messages</h3>
             <p className="text-[11px] text-[#69727E]">Campus chats & deals</p>
@@ -374,23 +384,35 @@ export default function ChatModal({
         </div>
 
         {/* Message Thread Area */}
-        <div className="flex flex-1 flex-col">
+        <div
+          className={`${
+            mobileTab === "thread" ? "flex" : "hidden"
+          } sm:flex flex-1 flex-col h-full overflow-hidden`}
+        >
           {selectedConv ? (
             <>
               {/* Thread Header with Item & Status Controls */}
-              <div className="flex items-center gap-3 border-b border-[#EAEAE3] p-4 sm:px-6">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-[#E8E1FF] text-sm font-extrabold text-[#6D45D8]">
+              <div className="flex items-center gap-2 sm:gap-3 border-b border-[#EAEAE3] p-3 sm:p-4 sm:px-6">
+                <button
+                  type="button"
+                  onClick={() => setMobileTab("conversations")}
+                  className="sm:hidden grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#F0EFEA] text-[#102033] hover:bg-[#E5E5DF] transition"
+                  title="Back to all chats"
+                >
+                  <Icon name="arrow" size={14} className="rotate-180" />
+                </button>
+                <span className="grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-full bg-[#E8E1FF] text-xs sm:text-sm font-extrabold text-[#6D45D8]">
                   {selectedConv.partner?.name ? selectedConv.partner.name[0] : "S"}
                 </span>
-                <div className="min-w-0">
-                  <h4 className="text-sm font-extrabold text-[#102033] truncate">
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-xs sm:text-sm font-extrabold text-[#102033] truncate">
                     {selectedConv.partner?.name || "Campus Student"}
                   </h4>
-                  <div className="flex items-center gap-1.5 text-[11px] text-[#6B7582] truncate">
-                    <span>{selectedConv.listing?.title}</span>
+                  <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-[#6B7582] truncate">
+                    <span className="truncate">{selectedConv.listing?.title}</span>
                     <span>·</span>
                     <span
-                      className={`font-black ${
+                      className={`font-black shrink-0 ${
                         isSold
                           ? "line-through text-gray-400"
                           : isProcessing
@@ -401,7 +423,7 @@ export default function ChatModal({
                       {selectedConv.listing?.price}
                     </span>
                     {isProcessing && (
-                      <span className="rounded bg-amber-100 border border-amber-300 px-1.5 py-0.2 text-[9px] font-black uppercase text-amber-800">
+                      <span className="rounded bg-amber-100 border border-amber-300 px-1 py-0.2 text-[8px] sm:text-[9px] font-black uppercase text-amber-800 shrink-0">
                         ⏳ Processing
                       </span>
                     )}
@@ -409,7 +431,7 @@ export default function ChatModal({
                 </div>
 
                 {/* Seller Controls in Header */}
-                <div className="ml-auto flex items-center gap-2 pr-8">
+                <div className="ml-auto flex items-center gap-1.5 sm:gap-2 pr-7 sm:pr-8 shrink-0">
                   {isSold ? (
                     <div className="flex items-center gap-2">
                       <span className="flex items-center gap-1 rounded-full bg-red-100 border border-red-200 px-3 py-1 text-xs font-black tracking-wide text-red-700">
@@ -687,8 +709,16 @@ export default function ChatModal({
               </form>
             </>
           ) : (
-            <div className="flex flex-1 items-center justify-center p-6 text-center text-xs text-[#7B8592]">
-              Select a conversation to start chatting
+            <div className="flex flex-1 flex-col items-center justify-center p-6 text-center text-xs text-[#7B8592]">
+              <span className="text-3xl mb-2">💬</span>
+              <p className="font-semibold text-[#102033]">Select a conversation to start chatting</p>
+              <button
+                type="button"
+                onClick={() => setMobileTab("conversations")}
+                className="mt-3 sm:hidden rounded-xl bg-[#102033] px-4 py-2 text-xs font-bold text-white shadow-sm"
+              >
+                View All Conversations
+              </button>
             </div>
           )}
         </div>

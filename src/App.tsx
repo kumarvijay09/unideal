@@ -665,7 +665,7 @@ export default function App() {
                 View everything <Icon name="arrow" size={17} />
               </button>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
               {categories.map((category) => (
                 <button
                   key={category.label}
