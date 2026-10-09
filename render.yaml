@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: unideal-campus-marketplace
+    name: campuscart-marketplace
     runtime: node
     plan: free
     region: oregon

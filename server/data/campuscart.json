@@ -160,7 +160,7 @@
       "savesCount": 28,
       "viewsCount": 240,
       "createdAt": "2026-10-08T09:45:00.000Z",
-      "updatedAt": "2026-10-09T07:12:46.944Z"
+      "updatedAt": "2026-10-09T07:42:13.688Z"
     },
     {
       "id": 5,
@@ -565,6 +565,21 @@
   ],
   "offers": [
     {
+      "id": "offer-1791531733675-cxsj",
+      "listingId": 4,
+      "listingTitle": "Sony WH-1000XM4 Noise Cancelling Wireless Headphones",
+      "originalPrice": 8500,
+      "offerAmount": 500,
+      "buyerId": "buyer-unit-1",
+      "buyerName": "Test Buyer",
+      "sellerId": "user-priya",
+      "sellerName": "Priya Sharma",
+      "status": "cancelled",
+      "message": "Can pick up at Hostel gate today",
+      "createdAt": "2026-10-09T07:42:13.675Z",
+      "updatedAt": "2026-10-09T07:42:13.688Z"
+    },
+    {
       "id": "offer-1791529966932-j6pj",
       "listingId": 4,
       "listingTitle": "Sony WH-1000XM4 Noise Cancelling Wireless Headphones",
@@ -617,9 +632,9 @@
       "buyerId": "buyer-unit-1",
       "sellerId": "user-priya",
       "lastMessage": "Offer for ₹500 was cancelled.",
-      "lastMessageAt": "2026-10-09T07:12:46.944Z",
+      "lastMessageAt": "2026-10-09T07:42:13.688Z",
       "unreadCountBuyer": 0,
-      "unreadCountSeller": 4
+      "unreadCountSeller": 7
     },
     {
       "id": "conv-1",
@@ -720,6 +735,39 @@
       "receiverName": "Priya Sharma",
       "text": "Offer for ₹500 was cancelled.",
       "createdAt": "2026-10-09T07:12:46.944Z"
+    },
+    {
+      "id": "msg-1791531733687-mzfm",
+      "conversationId": "conv-1791529762556-s3qd",
+      "listingId": 4,
+      "senderId": "buyer-unit-1",
+      "senderName": "Test Buyer",
+      "receiverId": "user-priya",
+      "receiverName": "Priya Sharma",
+      "text": "Offer made: ₹500 - \"Can pick up at Hostel gate today\"",
+      "createdAt": "2026-10-09T07:42:13.687Z"
+    },
+    {
+      "id": "msg-1791531733688-4jpi",
+      "conversationId": "conv-1791529762556-s3qd",
+      "listingId": 4,
+      "senderId": "system",
+      "senderName": "Student",
+      "receiverId": "user-priya",
+      "receiverName": "Priya Sharma",
+      "text": "Deal accepted! Offer for ₹500 was agreed. Ready to meet on campus!",
+      "createdAt": "2026-10-09T07:42:13.688Z"
+    },
+    {
+      "id": "msg-1791531733688-zhfy",
+      "conversationId": "conv-1791529762556-s3qd",
+      "listingId": 4,
+      "senderId": "system",
+      "senderName": "Student",
+      "receiverId": "user-priya",
+      "receiverName": "Priya Sharma",
+      "text": "Offer for ₹500 was cancelled.",
+      "createdAt": "2026-10-09T07:42:13.688Z"
     }
   ],
   "savedListings": [

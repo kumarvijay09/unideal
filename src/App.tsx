@@ -51,38 +51,89 @@ const initialCategories: {
 function Logo({ className = "" }: { className?: string }) {
   return (
     <button
-      className={`group flex items-center gap-2.5 text-left ${className}`}
+      className={`group flex items-center gap-3 text-left ${className}`}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="CampusCart home"
     >
-      <div className="relative">
-        <div className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-tr from-[#6D45D8] to-[#9265FF] text-white shadow-md shadow-[#6D45D8]/30 transition-transform duration-300 group-hover:scale-105 group-hover:rotate-[-4deg]">
-          {/* Custom Shopping Cart Icon */}
+      <div className="relative shrink-0">
+        {/* Collegiate University Crest Emblem */}
+        <div className="relative grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-[#0B132B] via-[#1C1950] to-[#581C87] text-white shadow-md shadow-[#581C87]/25 ring-1 ring-white/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#6D45D8]/35">
           <svg
-            className="h-5 w-5 fill-none stroke-current stroke-[2.2]"
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            className="h-7 w-7"
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <circle cx="9" cy="20" r="1.5" fill="currentColor" />
-            <circle cx="18" cy="20" r="1.5" fill="currentColor" />
-            <path d="M2.5 3.5h3.2l2.3 11.2a1.8 1.8 0 0 0 1.8 1.4h8.8a1.8 1.8 0 0 0 1.8-1.4l1.6-7.2H6.6" />
+            {/* Collegiate Shield Outline */}
+            <path
+              d="M18 3C25 3 31 5 31 11.5C31 22 23.5 29.5 18 33C12.5 29.5 5 22 5 11.5C5 5 11 3 18 3Z"
+              stroke="#DDD3FA"
+              strokeWidth="1.2"
+              strokeOpacity="0.35"
+              fill="white"
+              fillOpacity="0.05"
+            />
+
+            {/* Academic Mortarboard Graduation Cap (Top) */}
+            <path
+              d="M18 6L7 11.2L18 16.4L29 11.2L18 6Z"
+              fill="white"
+            />
+            {/* Cap Skull Underline / Headband */}
+            <path
+              d="M11.5 13.5V16.8C11.5 18.6 14.4 20 18 20C21.6 20 24.5 18.6 24.5 16.8V13.5"
+              stroke="white"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+            />
+            {/* Academic Golden Tassel */}
+            <path
+              d="M26.5 12.2V18.2"
+              stroke="#FACC15"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+            />
+            <circle cx="26.5" cy="18.9" r="1.1" fill="#FACC15" />
+
+            {/* Open Book Pages / Cart Basket Fusion (Center) */}
+            <path
+              d="M10 21.5C12.5 20.8 15.5 21.2 18 22.4C20.5 21.2 23.5 20.8 26 21.5"
+              stroke="#C8FF35"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+
+            {/* University Shopping Cart Chassis & Wheels (Base) */}
+            <path
+              d="M10 22.5L12 28.2H24L26 22.5"
+              stroke="#C8FF35"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {/* Cart Wheels */}
+            <circle cx="13.5" cy="30.2" r="1.3" fill="#C8FF35" />
+            <circle cx="22.5" cy="30.2" r="1.3" fill="#C8FF35" />
           </svg>
+
+          {/* Academic Laurel Star Accent */}
+          <span className="absolute -top-1 -right-1 grid h-4 w-4 place-items-center rounded-full bg-[#C8FF35] text-[9px] font-black text-[#0B132B] shadow-sm ring-2 ring-white">
+            ★
+          </span>
         </div>
-        {/* Neon Lime Campus Sparkle */}
-        <span className="absolute -top-1 -right-1 grid h-4 w-4 place-items-center rounded-full bg-[#C8FF35] text-[#102033] ring-2 ring-white shadow-sm transition-transform group-hover:rotate-12">
-          <svg className="h-2.5 w-2.5 fill-current" viewBox="0 0 24 24">
-            <path d="M12 2L14.8 8.6L22 9.4L16.7 14.1L18.2 21.2L12 17.5L5.8 21.2L7.3 14.1L2 9.4L9.2 8.6L12 2Z" />
-          </svg>
-        </span>
       </div>
 
       <div className="flex flex-col">
-        <span className="text-[20px] font-black tracking-[-0.035em] leading-tight text-[#102033]">
-          Campus<span className="text-[#6D45D8]">Cart</span>
-        </span>
-        <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#7B8594]">
-          Student Marketplace
+        <div className="flex items-center gap-1.5">
+          <span className="text-[20px] font-black tracking-[-0.04em] leading-tight text-[#102033]">
+            Campus<span className="text-[#6D45D8]">Cart</span>
+          </span>
+          <span className="hidden sm:inline-flex items-center gap-0.5 rounded-full bg-[#EDE8FF] px-2 py-0.5 text-[8.5px] font-black uppercase tracking-wider text-[#5B21B6] border border-[#DDD3FA]">
+            University
+          </span>
+        </div>
+        <span className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#636F80]">
+          Collegiate Student Exchange
         </span>
       </div>
     </button>
