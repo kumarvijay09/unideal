@@ -133,7 +133,7 @@ function Logo({ className = "" }: { className?: string }) {
           </span>
         </div>
         <span className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-[#636F80]">
-          Collegiate Student Exchange
+          Student Marketplace
         </span>
       </div>
     </button>
