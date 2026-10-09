@@ -690,3 +690,14 @@ export const seedSavedListings = [
     savedAt: new Date(Date.now() - 25 * 60 * 1000).toISOString(),
   },
 ];
+
+export const seedData = {
+  users: seedUsers,
+  listings: seedListings,
+  offers: seedOffers,
+  conversations: seedConversations,
+  messages: seedMessages,
+  savedListings: seedSavedListings,
+};
+
+export default seedData;

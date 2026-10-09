@@ -48,19 +48,43 @@ const initialCategories: {
   { label: "Other", icon: "more", count: "Browse all", color: "bg-[#E9EDF1]" },
 ];
 
-function Logo() {
+function Logo({ className = "" }: { className?: string }) {
   return (
     <button
-      className="group flex items-center gap-2.5"
+      className={`group flex items-center gap-2.5 text-left ${className}`}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      aria-label="UniDeal home"
+      aria-label="CampusCart home"
     >
-      <span className="grid h-9 w-9 rotate-[-4deg] place-items-center rounded-xl bg-[#C8FF35] text-[#102033] transition group-hover:rotate-0">
-        <Icon name="spark" size={19} />
-      </span>
-      <span className="text-[19px] font-extrabold tracking-[-0.04em] text-[#102033]">
-        Uni<span className="text-[#6D45D8]">Deal</span>
-      </span>
+      <div className="relative">
+        <div className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-tr from-[#6D45D8] to-[#9265FF] text-white shadow-md shadow-[#6D45D8]/30 transition-transform duration-300 group-hover:scale-105 group-hover:rotate-[-4deg]">
+          {/* Custom Shopping Cart Icon */}
+          <svg
+            className="h-5 w-5 fill-none stroke-current stroke-[2.2]"
+            viewBox="0 0 24 24"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="9" cy="20" r="1.5" fill="currentColor" />
+            <circle cx="18" cy="20" r="1.5" fill="currentColor" />
+            <path d="M2.5 3.5h3.2l2.3 11.2a1.8 1.8 0 0 0 1.8 1.4h8.8a1.8 1.8 0 0 0 1.8-1.4l1.6-7.2H6.6" />
+          </svg>
+        </div>
+        {/* Neon Lime Campus Sparkle */}
+        <span className="absolute -top-1 -right-1 grid h-4 w-4 place-items-center rounded-full bg-[#C8FF35] text-[#102033] ring-2 ring-white shadow-sm transition-transform group-hover:rotate-12">
+          <svg className="h-2.5 w-2.5 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2L14.8 8.6L22 9.4L16.7 14.1L18.2 21.2L12 17.5L5.8 21.2L7.3 14.1L2 9.4L9.2 8.6L12 2Z" />
+          </svg>
+        </span>
+      </div>
+
+      <div className="flex flex-col">
+        <span className="text-[20px] font-black tracking-[-0.035em] leading-tight text-[#102033]">
+          Campus<span className="text-[#6D45D8]">Cart</span>
+        </span>
+        <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#7B8594]">
+          Student Marketplace
+        </span>
+      </div>
     </button>
   );
 }
@@ -1039,7 +1063,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* Hackathon Problem Statement Showcase: Why Campus WhatsApp Groups Break Down vs. UniDeal */}
+        {/* Hackathon Problem Statement Showcase: Why Campus WhatsApp Groups Break Down vs. CampusCart */}
         <section className="border-t border-[#E5E5DF] bg-[#FAF9F5] py-20">
           <div className="mx-auto max-w-[1240px] px-5 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
@@ -1052,7 +1076,7 @@ export default function App() {
               <p className="mt-3 text-sm leading-6 text-[#5A6573]">
                 Campus life shouldn't rely on buried chat messages, lost prices, and endless
                 <span className="font-bold text-[#102033]"> "Is this still available?"</span> loops.
-                Here is why UniDeal gives campus commerce a proper home on the web.
+                Here is why CampusCart gives campus commerce a proper home on the web.
               </p>
             </div>
 
@@ -1118,7 +1142,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* UniDeal Web Home Card */}
+              {/* CampusCart Web Home Card */}
               <div className="rounded-3xl border border-emerald-300 bg-white p-7 shadow-sm ring-1 ring-emerald-500/10">
                 <div className="flex items-center justify-between pb-5 border-b border-emerald-100">
                   <div className="flex items-center gap-3">
@@ -1126,7 +1150,7 @@ export default function App() {
                       ✓
                     </span>
                     <div>
-                      <h3 className="text-base font-extrabold text-[#102033]">The UniDeal Web Marketplace</h3>
+                      <h3 className="text-base font-extrabold text-[#102033]">The CampusCart Web Marketplace</h3>
                       <p className="text-xs text-[#717B87]">Purpose-built for campus buying, selling & bargaining</p>
                     </div>
                   </div>
@@ -1193,7 +1217,7 @@ export default function App() {
                   <p className="mt-3 text-xs sm:text-sm text-white/70 leading-6 italic">
                     "When clearing out my hostel room before graduation, I had a bicycle, electric kettle, and 8 textbooks.
                     Posting on WhatsApp got me 45 random DMs asking 'available?', buyers who agreed on ₹600 then showed up at the gate offering ₹350,
-                    and messages buried by lunch. UniDeal gave me one clean link, locked-in bargaining, and peace of mind."
+                    and messages buried by lunch. CampusCart gave me one clean link, locked-in bargaining, and peace of mind."
                   </p>
                   <p className="mt-3 text-xs font-bold text-[#C8FF35]">
                     — Rohan Sharma, Final Year Hostel 7 resident & Campus Seller
@@ -1253,7 +1277,7 @@ export default function App() {
                 </p>
               </div>
               <div>
-                <p className="mb-4 font-extrabold">UniDeal</p>
+                <p className="mb-4 font-extrabold">CampusCart</p>
                 <p
                   onClick={() => document.getElementById("how")?.scrollIntoView({ behavior: "smooth" })}
                   className="mb-3 text-[#6B7480] cursor-pointer hover:text-[#102033]"
@@ -1266,7 +1290,7 @@ export default function App() {
             </div>
           </div>
           <div className="flex flex-col gap-2 pt-6 text-xs text-[#858C95] sm:flex-row sm:justify-between">
-            <p>© 2025 UniDeal. Made with care for campus communities.</p>
+            <p>© 2025 CampusCart. Made with care for campus communities.</p>
             <p>Privacy · Terms · Community guidelines · Cloud Ready API</p>
           </div>
         </div>

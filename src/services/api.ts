@@ -77,7 +77,7 @@ export interface Conversation {
 }
 
 function getAuthHeader(): Record<string, string> {
-  const token = localStorage.getItem("unideal_token");
+  const token = localStorage.getItem("campuscart_token") || localStorage.getItem("unideal_token");
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
@@ -103,17 +103,19 @@ export const api = {
   auth: {
     getStoredUser(): User | null {
       try {
-        const raw = localStorage.getItem("unideal_user");
+        const raw = localStorage.getItem("campuscart_user") || localStorage.getItem("unideal_user");
         return raw ? JSON.parse(raw) : null;
       } catch {
         return null;
       }
     },
     setSession(token: string, user: User) {
-      localStorage.setItem("unideal_token", token);
-      localStorage.setItem("unideal_user", JSON.stringify(user));
+      localStorage.setItem("campuscart_token", token);
+      localStorage.setItem("campuscart_user", JSON.stringify(user));
     },
     logout() {
+      localStorage.removeItem("campuscart_token");
+      localStorage.removeItem("campuscart_user");
       localStorage.removeItem("unideal_token");
       localStorage.removeItem("unideal_user");
     },

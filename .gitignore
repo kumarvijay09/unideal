@@ -6,6 +6,7 @@ build/
 .env.local
 server/data/*.tmp
 !server/data/unideal.json
+!server/data/campuscart.json
 .vite/
 vite.config.*.timestamp-*
 *.tsbuildinfo

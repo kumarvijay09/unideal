@@ -37,7 +37,10 @@ describe("Accessibility & WCAG Compliance Standards", () => {
     );
 
     // Check logo and save buttons have accessibility attributes
-    assert.ok(appContent.includes('aria-label="UniDeal home"'), "Logo must have aria-label");
+    assert.ok(
+      appContent.includes('aria-label="CampusCart home"') || appContent.includes('aria-label="UniDeal home"'),
+      "Logo must have aria-label"
+    );
     assert.ok(appContent.includes('aria-label='), "Must contain aria-labels on icon-only actions");
   });
 

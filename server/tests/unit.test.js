@@ -7,7 +7,7 @@ import { seedData } from "../database/seedData.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "unideal-campus-dev-secret-key-2025";
 
-describe("UniDeal Core Business Logic & Data Integrity", () => {
+describe("CampusCart Core Business Logic & Data Integrity", () => {
   it("should have exactly 24 seeded items across all 8 campus categories (3 per category)", () => {
     assert.equal(seedData.listings.length, 24, "Must have exactly 24 seed listings");
 

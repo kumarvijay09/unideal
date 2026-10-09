@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   const stats = getStats();
   res.json({
     status: "ok",
-    app: "UniDeal Campus Marketplace API",
+    app: "CampusCart Campus Marketplace API",
     version: "1.0.0",
     uptimeSeconds: Math.floor((Date.now() - startTime) / 1000),
     environment: config.nodeEnv,

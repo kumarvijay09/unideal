@@ -60,7 +60,7 @@ export default function AuthModal({
         campusLocation,
         hostel,
       });
-      onNotify(`Account created! Welcome to UniDeal, ${res.user.name}!`);
+      onNotify(`Account created! Welcome to CampusCart, ${res.user.name}!`);
       onSuccess(res.user);
       onClose();
     } catch (err: any) {

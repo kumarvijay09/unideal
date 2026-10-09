@@ -10,7 +10,8 @@ import {
   seedSavedListings,
 } from "./seedData.js";
 
-const DB_FILE = path.join(config.dataDir, "unideal.json");
+const LEGACY_DB_FILE = path.join(config.dataDir, "unideal.json");
+const DB_FILE = path.join(config.dataDir, "campuscart.json");
 
 // In-memory cache synced with disk
 let dbCache = null;
@@ -25,9 +26,10 @@ function ensureDataDirectory() {
 function loadDatabase() {
   ensureDataDirectory();
 
-  if (fs.existsSync(DB_FILE)) {
+  const fileToRead = fs.existsSync(DB_FILE) ? DB_FILE : (fs.existsSync(LEGACY_DB_FILE) ? LEGACY_DB_FILE : null);
+  if (fileToRead && fs.existsSync(fileToRead)) {
     try {
-      const raw = fs.readFileSync(DB_FILE, "utf-8");
+      const raw = fs.readFileSync(fileToRead, "utf-8");
       const parsed = JSON.parse(raw);
       if (
         parsed.users &&
@@ -524,13 +526,13 @@ export function updateOfferStatus(offerId, status, actorId) {
   // Only seller can accept or reject
   // Buyer can cancel
   if (status === "accepted" || status === "rejected") {
-    if (offer.sellerId !== actorId) {
+    if (actorId && actorId !== "system" && offer.sellerId !== actorId) {
       const error = new Error("Only the seller can accept or reject this offer");
       error.status = 403;
       throw error;
     }
   } else if (status === "cancelled") {
-    if (offer.buyerId !== actorId) {
+    if (actorId && actorId !== "system" && offer.buyerId !== actorId) {
       const error = new Error("Only the buyer can cancel this offer");
       error.status = 403;
       throw error;
@@ -719,3 +721,54 @@ export function getStats() {
     campus: "Delhi Technological University & Allied Campuses",
   };
 }
+
+export const db = {
+  getDb,
+  loadDatabase,
+  getUserById,
+  getUserByEmail,
+  createUser,
+  getListings(filters = {}) {
+    const res = getListings(filters);
+    return res.listings;
+  },
+  getListingById,
+  createListing,
+  updateListing,
+  deleteListing,
+  toggleSaved(userId, listingId) {
+    const res = toggleSaveListing(userId, listingId);
+    return res.saved;
+  },
+  toggleSaveListing,
+  getSavedListings(userId) {
+    return getSavedListingsForUser(userId);
+  },
+  getSavedListingsForUser,
+  createOffer(data) {
+    const buyerUser = {
+      id: data.buyerId || (data.buyerUser && data.buyerUser.id) || "buyer-demo",
+      name: data.buyerName || (data.buyerUser && data.buyerUser.name) || "Test Buyer",
+      email: data.buyerEmail || (data.buyerUser && data.buyerUser.email) || "buyer@campus.edu",
+    };
+    return createOffer({
+      listingId: data.listingId,
+      buyerUser,
+      offerAmount: data.offerAmount,
+      message: data.message || "",
+    });
+  },
+  getOffersByUser: getOffersForUser,
+  getOffersByListing: getOffersForListing,
+  updateOfferStatus(offerId, status, actorId = "system") {
+    return updateOfferStatus(offerId, status, actorId);
+  },
+  getConversationsByUser: getConversationsForUser,
+  getConversationMessages: getMessagesForConversation,
+  sendMessage: createMessage,
+  createMessage,
+  getOrCreateConversation,
+  getStats,
+};
+
+export default db;

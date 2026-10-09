@@ -1,7 +1,7 @@
-# 🎓 UniDeal - Dedicated Campus Marketplace for Students
+# 🎓 CampusCart - Dedicated Campus Marketplace for Students
 
 > **Good stuff, closer than you think.**  
-> UniDeal is a full-stack, purpose-built campus web marketplace designed to rescue university commerce from chaotic WhatsApp groups.
+> CampusCart is a full-stack, purpose-built campus web marketplace designed to rescue university commerce from chaotic WhatsApp groups.
 
 ---
 
@@ -13,7 +13,7 @@
 > *"Make it yours: Who is the real owner of this business and what annoys them? What does the WhatsApp version get wrong? What would make students trust it?"*  
 > *"No AI is needed inside the app."*
 
-| Hackathon Requirement | How UniDeal Solves It |
+| Hackathon Requirement | How CampusCart Solves It |
 |---|---|
 | **Campus Business Chosen** | **Peer-to-Peer Campus Buy & Sell (Textbooks, Tech, Hostel Gear, Cycles)** |
 | **Sellers post what they offer** | Clean sell modal to upload item photos, set asking price, condition, category, and exact campus/hostel pickup location. |
@@ -21,17 +21,17 @@
 | **Chat & Bargain on a price** | Integrated campus chat with an active **Bargaining & Offer Engine**: Buyers propose custom ₹ offers; Sellers have a one-click **"Accept Offer (₹...)"** or **"Decline"** button. |
 | **Kill "Is this still available?"** | Real-time status lifecycle: `● Available` ➔ `⏳ Processing (Deal Agreed & Reserved)` ➔ `✓ Sold Out`. No more guessing or ghosting. |
 | **The Real Owner & What Annoys Them** | **Persona: Graduating Senior & Hostel Room Reseller** (e.g. Rohan Sharma, Hostel 7). Annoys them: Answering 40 DMs asking "available?", messages buried under 500+ group memes, and buyers re-haggling at the hostel gate. |
-| **What WhatsApp gets wrong** | Messages get buried in 15 minutes; prices are lost across messy screenshots; no price lock-in; zero inventory tracking. |
+| **What WhatsApp gets wrong** | Messages get buried in 15 minutes; prices are lost across messy screenshots; zero inventory tracking. |
 | **What makes students trust it** | Campus-verified student accounts, verified hostel block locations, and transparent transaction state tracking. |
 | **No AI needed inside app** | 100% human-to-human peer commerce built with modern web speed, direct communication, and real student trust. |
 
 ---
 
-## 🌟 WhatsApp Groups vs. UniDeal
+## 🌟 WhatsApp Groups vs. CampusCart
 
 ```
 +-----------------------------------+-----------------------------------+
-|  Chaotic WhatsApp Groups (Before) |       UniDeal Web Home (Now)      |
+|  Chaotic WhatsApp Groups (Before) |      CampusCart Web Home (Now)    |
 +-----------------------------------+-----------------------------------+
 | ❌ Buried under 300+ memes & spam | ✅ Permanent catalog & 8 category |
 |    within 15 minutes.             |    search by hostel & subject.    |
@@ -143,7 +143,7 @@ Open **http://localhost:5000** in your browser.
 
 ## 🧪 Automated Testing & Quality Assurance
 
-UniDeal includes a multi-tier automated test suite executable with zero setup:
+CampusCart includes a multi-tier automated test suite executable with zero setup:
 
 ```bash
 # Run unit and accessibility tests (native Node.js runner):
@@ -172,12 +172,12 @@ npm run test:coverage
 
 ## ☁️ Cloud Deployment Guide (Render / Docker)
 
-UniDeal is containerized and cloud-ready with native Docker and Render support:
+CampusCart is containerized and cloud-ready with native Docker and Render support:
 
 1. Push this repository to GitHub:
    ```bash
    git add .
-   git commit -m "Update UniDeal for hackathon problem statement"
+   git commit -m "Update CampusCart for hackathon problem statement"
    git push origin main
    ```
 2. Render detects the commit and triggers a zero-downtime automatic build & deploy via Docker.

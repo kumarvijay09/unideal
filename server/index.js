@@ -110,7 +110,7 @@ let server = null;
 if (process.env.NODE_ENV !== "test") {
   server = app.listen(config.port, "0.0.0.0", () => {
     console.log(`====================================================`);
-    console.log(` UniDeal Campus Backend running on port ${config.port}`);
+    console.log(` CampusCart Campus Backend running on port ${config.port}`);
     console.log(` Environment: ${config.nodeEnv}`);
     console.log(` Health check: http://localhost:${config.port}/api/health`);
     console.log(` API Docs & Endpoints: http://localhost:${config.port}/api/meta`);
@@ -120,7 +120,7 @@ if (process.env.NODE_ENV !== "test") {
 
 // Graceful shutdown
 function shutdown(signal) {
-  console.log(`\nReceived ${signal}. Gracefully shutting down UniDeal backend...`);
+  console.log(`\nReceived ${signal}. Gracefully shutting down CampusCart backend...`);
   if (server) {
     server.close(() => {
       console.log("HTTP server closed.");

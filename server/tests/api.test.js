@@ -1,4 +1,4 @@
-// Smoke test suite for UniDeal Backend API
+// Smoke test suite for CampusCart Backend API
 import app from "../index.js";
 
 let server = null;
@@ -18,7 +18,7 @@ async function runTests() {
     console.log(`Started in-process test server on ${BASE_URL}`);
   }
 
-  console.log(`Starting UniDeal API verification tests against ${BASE_URL}...`);
+  console.log(`Starting CampusCart API verification tests against ${BASE_URL}...`);
   let passed = 0;
   let failed = 0;
 
